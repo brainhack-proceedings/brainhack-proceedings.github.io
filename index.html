@@ -37,7 +37,7 @@
     primary:    light grey for background
     secondary:  currently unused
     accent:     blue
-    dark:       is the 444 background grey for header & footer
+    dark:       background grey for header & footer
     positive:   
     negative:   
     info:       
@@ -46,8 +46,9 @@
 
 
     <!-- code for disappearing header -->
-    <!-- <div class="q-pa-md"> -->
-      <!-- <q-layout view="lHh Lpr lFf" container style="height: 400px" class="shadow-2 rounded-borders">
+    <!-- <div class="q-pa-md">
+      <q-layout view="lHh Lpr lFf" container style="height: 400px" class="shadow-2 rounded-borders">
+
         <q-header reveal elevated>
           <q-toolbar>
             <q-btn flat round dense icon="menu" @click="drawerLeft = !drawerLeft" >
@@ -92,7 +93,7 @@
             </div>
           </q-scroll-area>
         </q-drawer>
-  
+
         <q-page-container>
           <q-page padding style="padding-top: 66px">
             <p v-for="n in 15" :key="n">
@@ -103,7 +104,7 @@
             <!-- <q-page-sticky expand position="top">
               <q-toolbar class="bg-accent text-white">
                 <q-avatar>
-                  <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+                  <img style="width:50px; height:50px;" src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
                 </q-avatar>
                 <q-toolbar-title>
                   Page Title
@@ -111,8 +112,8 @@
               </q-toolbar>
             </q-page-sticky>
           </q-page>
-        </q-page-container> -->
-      <!-- </q-layout>
+        </q-page-container>
+      </q-layout>
     </div> -->
     
 
@@ -122,7 +123,7 @@
 
 
       <!-- header -->
-      <q-header class="q-py-none bg-dark" >
+      <q-header reveal height-hint="100" class="q-py-none bg-dark" >
         <div class="bg-image">
           <q-img src="img/header/pattern1.svg" >
           </q-img>
