@@ -1,0 +1,45 @@
+
+<!-- third paper card: test inclusion via github -->
+<div class="row">
+  <div class="col-md-1" ></div>
+
+  <div class="q-py-sm col-12 col-lg-10 col-md-10">
+    <q-card v-for="pr in projects" inline @mouseover="hoverOver(1)" @mouseout="hoverOutTimeout(1)" style="border: none;"
+      class="text-left" flat bordered @click="goTo(pr.projectURL)">
+
+      <q-card-section class="text-left">
+        <div class="row">
+        <div class="col-8 q-pl-md q-pr-lg">
+          <div class="row">
+            <div class="text-caption text-grey-9 q-mt-sm">
+              {{pr.projectInfo.language}}
+            </div>
+          </div>
+          <div class="row">
+            <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
+              class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">{{pr.projectName}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="text-caption text-grey-9 q-mt-sm">
+              {{pr.projectInfo.description}}
+            </div>
+          </div>
+          </div>
+          <div class="col-3 q-py-md q-pl-lg q-pr-md">
+            <div class="row q-pb-xs">
+              <q-img style="height: 50px;width:50px;" :src="pr.imgSrc" >
+              </q-img>
+            </div>
+            <div class="row q-py-xs">
+              <a :href="pr.projectInfo.homepage" target="_blank" style="color: #4b4f51; text-decoration: none;">doi: 10.0000/abc-31415</a>
+            </div>
+          </div>
+        </div>
+
+      </q-card-section>
+
+    </q-card>
+  </div>
+  <div class="col-md-1" ></div>
+</div>

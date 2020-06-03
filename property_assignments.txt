@@ -1,0 +1,10 @@
+CSS property assignments:
+
+primary:    light grey for background
+secondary:  currently unused
+accent:     blue
+dark:       background grey for header & footer
+positive:   
+negative:   
+info:       
+warning:    
