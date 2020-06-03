@@ -37,15 +37,26 @@
       color: white
     }
   </style>
+  <style>
+    html, body {
+      margin:0;
+    }
+    .b {
+      fill: rgb(59,81,94);
+    }
+    .a {
+      fill: rgba(83,91,96,0.5);
+    }
+  </style>
 
-  <script>
+<script>
   window.quasarConfig = {
     brand: {
       primary: '#f0f0f0',
       secondary: '#26A69A',
       accent: '#668fa6',
 
-      dark: '#4b4f51',
+      dark: 'rgb(66,67,68)',
 
       positive: '#21BA45',
       negative: '#C10015',
@@ -91,14 +102,12 @@
         <q-page>
 
           <!-- Header landing -->
-          <div class="q-px-none bg-dark" style="z-index:10px;">
+          <div class="q-pa-none q-ma-none bg-dark" style="z-index:10px;">
 
-            <div class="q-px-none q-pt-xl bg-dark" >
+            <div class="q-pa-none q-ma-none bg-dark" >
 
-              <div class="bg-image">
-                <q-img src="img/header/pattern1.svg" >
-                </q-img>
-              </div>
+              <svg style="width:100%;height:200px"></svg>
+
               <q-toolbar class="items-bottom">
                 <span :style="'font-size: 31px;'" class="my-logo-font text-h6 text-white q-ml-xl text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light text-white">Proceedings</span>
                 <q-space></q-space>
@@ -337,6 +346,27 @@
         }
       }
     });
+  </script>
+
+  <script>
+    const svg = document.querySelector("svg");
+    const ncols = 33, nrows = 4, o = 50;
+    const minr = 10;
+    const d = (window.outerWidth - 2*o)/(ncols-1);
+    const height = 1.5*o + (nrows-1)*d;
+    const r = d/140;
+    svg.innerHTML = `<rect x="0" y="0" width="${2*o+(ncols-1)*d}" height="${height}" fill="rgb(66,67,68)"/>`
+    svg.style.height = height;
+    for(let j=0;j<nrows;j++) {
+      for(let i=0;i<ncols;i++) {
+        const x = o + i*d;
+        const y = o + j*d;
+        const r1 = (i+minr)*r;
+        const r2 = ((ncols-1-i)+minr)*r;
+        svg.innerHTML += `<circle class="b" cx="${x}" cy="${y}" r="${r2}" /> `;
+        svg.innerHTML += `<circle class="a" cx="${x-9}" cy="${y}" r="${r1}" /> `;
+      }
+    }
   </script>
 
 </body>
