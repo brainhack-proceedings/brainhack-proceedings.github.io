@@ -5,17 +5,17 @@
   <title>Brainhack Proceedings</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.min.css" rel="stylesheet" type="text/css">
 
   <style>
+    [v-cloak] {display: none}
+
     .my-logo-font {
       font-family: 'Roboto Condensed', sans-serif;
     }
     .my-font {
-      /* font-family: 'Open Sans', sans-serif; */
       font-family: 'Roboto', sans-serif;
     }
 
@@ -32,7 +32,7 @@
     }
 
     .custom_tab {
-      width: 120px;
+      width: 80px;
       min-height:50px !important;
       color: white
     }
@@ -70,27 +70,27 @@
 <body>
     <div id="q-app">
 
-    <q-layout view="lHh lpr lFf">
+    <q-layout v-cloak view="lHh lpr lFf">
 
       <!-- header -->
       <q-header v-model="headerState" v-scroll="scrollFunction" class="q-py-none bg-dark" >
         <q-toolbar class="items-bottom">
-          <span :style="'font-size: 31px;'" class="my-logo-font text-h6 text-white q-ml-xl text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light">Proceedings</span>
+          <span style="font-size: 31px;margin-left:30px" class="my-logo-font text-h6 text-white text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light">Proceedings</span>
           <q-space></q-space>
           <q-tabs no-caps q-pb-none >
-            <q-tab :style="[selected_tab == 't_0' ? {backgroundColor: bg_color} : {}]"
+            <q-tab
               class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
               label="About" >
             </q-tab>
-            <q-tab :style="[selected_tab == 't_1' ? {backgroundColor: bg_color} : {}]"
+            <q-tab
               class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/papers')"
               label="Papers" >
             </q-tab>
-            <q-tab :style="[selected_tab == 't_2' ? {backgroundColor: bg_color} : {}]"
+            <q-tab
               class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/blog')"
               label="Blog" >
             </q-tab>
-            <q-tab :style="[selected_tab == 't_3' ? {backgroundColor: bg_color} : {}]"
+            <q-tab
               class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://github.com/brainhack-proceedings/submit')"
               label="Submit" >
             </q-tab>
@@ -109,22 +109,22 @@
               <svg style="width:100%;height:200px"></svg>
 
               <q-toolbar class="items-bottom">
-                <span :style="'font-size: 31px;'" class="my-logo-font text-h6 text-white q-ml-xl text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light text-white">Proceedings</span>
+                <span style="font-size:31px;margin-left:30px" class="my-logo-font text-h6 text-white text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light text-white">Proceedings</span>
                 <q-space></q-space>
                 <q-tabs no-caps q-pb-none >
-                  <q-tab :style="[selected_tab == 't_0' ? {backgroundColor: bg_color} : {}]"
+                  <q-tab
                     class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
                     label="About" >
                   </q-tab>
-                  <q-tab :style="[selected_tab == 't_1' ? {backgroundColor: bg_color} : {}]"
+                  <q-tab
                     class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/papers')"
                     label="Papers" >
                   </q-tab>
-                  <q-tab :style="[selected_tab == 't_2' ? {backgroundColor: bg_color} : {}]"
+                  <q-tab
                     class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/blog')"
                     label="Blog" >
                   </q-tab>
-                  <q-tab :style="[selected_tab == 't_3' ? {backgroundColor: bg_color} : {}]"
+                  <q-tab
                     class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://github.com/brainhack-proceedings/submit')"
                     label="Submit" >
                   </q-tab>
@@ -143,7 +143,7 @@
                 <div class="col-md-1" ></div>
 
                 <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
-                  <span class="text-left text-grey-9" style="font-size: 36px;">Brainhack Proceedings is a friendly, open access journal for research projects.
+                  <span class="text-left text-grey-10" style="font-size: 36px;">Brainhack Proceedings is a friendly, open access journal for research projects.
                   </span>
                 </div>
 
@@ -156,7 +156,7 @@
                 <div class="col-md-1"></div>
 
                 <div class="q-py-sm col-12 col-lg-6 col-md-9">
-                  <span class="text-center text-grey-9 text-h5 text-weight-light">Committed to publishing quality project reports with zero article processing charges or subscription fees.</span>
+                  <span class="text-center text-grey-10 text-h5 text-weight-light">Committed to publishing quality project reports with zero article processing charges or subscription fees.</span>
                 </div>
 
                 <div class="col-md-2"></div>
@@ -191,7 +191,7 @@
                 <div class="col-md-1" ></div>
 
                 <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
-                  <h5 class="text-left text-grey-9 text-weight-bold" style="font-size: 21px !important;">Recently published Papers
+                  <h5 class="text-left text-grey-10 text-weight-bold" style="font-size: 21px !important;">Recently published Papers
                   </h5>
                 </div>
 
@@ -222,7 +222,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="text-caption text-grey-9 q-mt-sm">
+                            <div class="text-caption text-grey-10 q-mt-sm">
                               {{paper.authors}}
                             </div>
                           </div>
