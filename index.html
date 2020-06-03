@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+<!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@1.12.0")
+  -->
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@^4.0.0/animate.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <script>
+  window.quasarConfig = {
+    brand: {
+      primary: '#f0f0f0',
+      secondary: '#26A69A',
+      accent: '#668fa6',
+
+      dark: '#4b4f51',
+
+      positive: '#21BA45',
+      negative: '#C10015',
+      info: '#31CCEC',
+      warning: '#F2C037'
+    }
+  }
+  </script>
+  <!-- property assignments -->
+  <!-- 
+    primary:    light grey for background
+    secondary:  currently unused
+    accent:     blue
+    dark:       is the 444 background grey for header & footer
+    positive:   
+    negative:   
+    info:       
+    warning:    
+  -->
+
+
+    <!-- code for disappearing header -->
+    <!-- <div class="q-pa-md"> -->
+      <!-- <q-layout view="lHh Lpr lFf" container style="height: 400px" class="shadow-2 rounded-borders">
+        <q-header reveal elevated>
+          <q-toolbar>
+            <q-btn flat round dense icon="menu" @click="drawerLeft = !drawerLeft" >
+            </q-btn>
+  
+            <q-toolbar-title>
+              <strong>Quasar</strong> Framework
+            </q-toolbar-title>
+  
+            <q-btn flat round dense icon="menu" @click="drawerRight = !drawerRight" >
+            </q-btn>
+          </q-toolbar>
+        </q-header>
+  
+        <q-drawer
+          v-model="drawerLeft"
+          :width="150"
+          :breakpoint="700"
+          behavior="desktop"
+          bordered
+          content-class="bg-grey-3"
+        >
+          <q-scroll-area class="fit">
+            <div class="q-pa-sm">
+              <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
+            </div>
+          </q-scroll-area>
+        </q-drawer>
+  
+        <q-drawer
+          side="right"
+          v-model="drawerRight"
+          bordered
+          :width="150"
+          :breakpoint="500"
+          behavior="desktop"
+          content-class="bg-grey-3"
+        >
+          <q-scroll-area class="fit">
+            <div class="q-pa-sm">
+              <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
+            </div>
+          </q-scroll-area>
+        </q-drawer>
+  
+        <q-page-container>
+          <q-page padding style="padding-top: 66px">
+            <p v-for="n in 15" :key="n">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil praesentium molestias a adipisci, dolore vitae odit, quidem consequatur optio voluptates asperiores pariatur eos numquam rerum delectus commodi perferendis voluptate?
+            </p> -->
+  
+            <!-- place QPageSticky at end of page -->
+            <!-- <q-page-sticky expand position="top">
+              <q-toolbar class="bg-accent text-white">
+                <q-avatar>
+                  <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+                </q-avatar>
+                <q-toolbar-title>
+                  Page Title
+                </q-toolbar-title>
+              </q-toolbar>
+            </q-page-sticky>
+          </q-page>
+        </q-page-container> -->
+      <!-- </q-layout>
+    </div> -->
+    
+
+    <div id="q-app">
+
+    <q-layout view="lHh lpr lFf">
+
+
+      <!-- header -->
+      <q-header class="q-py-none bg-dark" >
+        <div class="bg-image">
+          <q-img src="img/header/pattern1.svg" >
+          </q-img>
+        </div>
+        <q-toolbar class="items-bottom">
+          <span :style="'font-size: 31px;'" class="my-logo-font text-h6 text-white q-ml-xl text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light">Proceedings</span>
+          <q-space></q-space>
+          <q-tabs no-caps q-pb-none >
+            <q-tab :style="[selected_tab == 't_0' ? {backgroundColor: bg_color} : {}]"
+              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
+              style="width:120px;min-height:50px !important;color: white" label="About" >
+            </q-tab>
+            <q-tab :style="[selected_tab == 't_1' ? {backgroundColor: bg_color} : {}]"
+              class="q-mr-sm q-pb-none custom_tab" @click="scrollToElement('id_recentpapers');"
+              style="width:120px;min-height:50px !important;color: white" label="Papers" >
+            </q-tab>
+            <q-tab :style="[selected_tab == 't_1' ? {backgroundColor: bg_color} : {}]"
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/papers')"
+              style="width:120px;min-height:50px !important;color: white" label="Papers" >
+            </q-tab>
+            <q-tab :style="[selected_tab == 't_2' ? {backgroundColor: bg_color} : {}]"
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/blog')"
+              style="width:120px;min-height:50px !important;color: white" label="Blog" >
+            </q-tab>
+            <q-tab :style="[selected_tab == 't_3' ? {backgroundColor: bg_color} : {}]"
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://github.com/brainhack-proceedings/submit')"
+              style="width:120px;min-height:50px !important;color: white" label="Submit" >
+            </q-tab>
+          </q-tabs>
+        </q-toolbar>
+      </q-header>
+
+
+
+      <q-page-container>
+        <q-page>
+
+
+          <!-- About section -->
+          <div class="q-px-md bg-primary" >
+
+            <div class="q-px-xl q-pt-xl bg-primary" id="id_about" >
+
+              <!-- Text part 1 -->
+              <div class="row justify-left" >
+                <div class="col-md-1" ></div>
+
+                <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
+                  <span class="text-left text-grey-9" style="font-size: 36px;">Brainhack Proceedings is a friendly, open access journal for research projects.
+                  </span>
+                </div>
+
+                <div class="col-md-2" ></div>
+              </div>
+
+              <!-- Text part 2 -->
+              <div class="q-pb-md row justify-left">
+
+                <div class="col-md-1"></div>
+
+                <div class="q-py-sm col-12 col-lg-6 col-md-9">
+                  <span class="text-center text-grey-9 text-h5 text-weight-light">Committed to publishing quality project reports with zero article processing charges or subscription fees.</span>
+                </div>
+
+                <div class="col-md-2"></div>
+              </div>
+
+              <!-- 2 buttons -->
+              <div class="row justify-left">
+
+                <div class="col-md-1"></div>
+
+                <div class="col-12 col-lg-6 col-md-9 text-left">
+                  <q-btn flat dense no-caps class="text-weight-regular q-mr-lg q-px-md q-py-none" type="a" href="https://github.com/brainhack-proceedings/submit" size="lg"
+                    :style="'background:'+ theme_color +'; color: white; font-size: 21px;'" label="Submit a paper" >
+                  </q-btn>
+                  <q-btn flat dense no-caps class="text-weight-regular q-px-md q-py-none" type="a" href="https://github.com/brainhack-proceedings" size="lg"
+                    :style="'background:'+ theme_color +'; color: white'" label="Volunteer to review" >
+                  </q-btn>
+                </div>
+
+                <div class="col-12 col-md-2"></div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+          <!-- Recently published papers -->
+          <div class="q-px-md bg-primary" >
+            <div class="q-px-xl q-pt-sm bg-primary" id="id_recentpapers" >
+
+              <!-- Headline section -->
+              <div class="row justify-left" >
+                <div class="col-md-1" ></div>
+
+                <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
+                  <h5 class="text-left text-grey-9 text-weight-bold" style="font-size: 21px !important;">Recently published Papers
+                  </h5>
+                </div>
+
+                <div class="col-md-1" ></div>
+
+              </div>
+
+              <!-- first paper card -->
+              <div class="row">
+                <div class="col-md-1" ></div>
+
+                <div class="q-py-sm col-12 col-lg-10 col-md-10">
+                  <q-card inline @mouseover="hoverOver(1)" @mouseout="hoverOutTimeout(1)" style="border: none;"
+                    class="text-left" flat bordered>
+
+                    <q-card-section class="text-left">
+                      <div class="row">
+                      <div class="col-8 q-pl-md q-pr-lg">
+                        <div class="row">
+                          <div class="text-caption text-grey-9 q-mt-sm">
+                            Published
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
+                            class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">My wonderful awesome paper 1. Such surface, much open, very anatomy, brain all night: Wow.
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="text-caption text-grey-9 q-mt-sm">
+                            RoboKat KR, Doge D, Shiba L & Wow H.
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-3 q-py-md q-pl-lg q-pr-md">
+                          <div class="row q-pb-xs">
+                            <q-img style="height: 50px;width:50px;" src="https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4" >
+                            </q-img>
+                          </div>
+                          <div class="row q-py-xs">
+                            <a href="https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4" target="_blank" style="color: #4b4f51; text-decoration: none;">doi: 10.0000/abc-31415</a>
+                          </div>
+                        </div>
+                      </div>
+
+                    </q-card-section>
+
+                  </q-card>
+                </div>
+                <div class="col-md-1" ></div>
+              </div>
+
+
+              <!-- second paper card -->
+              <div class="row">
+                <div class="col-md-1" ></div>
+
+                <div class="q-py-sm col-12 col-lg-10 col-md-10">
+                  <q-card inline @mouseover="hoverOver(1)" @mouseout="hoverOutTimeout(1)" style="border: none;"
+                    class="text-left" flat bordered>
+
+                    <q-card-section class="text-left">
+                      <div class="row">
+                      <div class="col-8 q-px-md">
+                        <div class="row">
+                          <div class="text-caption text-grey-9 q-mt-sm">
+                            Published
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
+                            class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">Awesome paper #2. Such dance, much open, very music, rock all night: Wow.
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="text-caption text-grey-9 q-mt-sm">
+                            Gangnam S, Skeleton S & Coffin D.
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-4 q-py-md q-px-md">
+                          <div class="row q-pb-xs">
+                            <q-img style="height: 50px;width:50px;" src="https://avatars1.githubusercontent.com/u/6297454?s=400&u=63caaf4ecedbdc64dc6798345aa19807a5eb35df&v=4" >
+                            </q-img>
+                          </div>
+                          <div class="row q-py-xs">
+                            <a href="https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4" target="_blank" style="color: #4b4f51; text-decoration: none;">doi: 10.0000/abc-31415</a>
+                          </div>
+                        </div>
+                      </div>
+
+                    </q-card-section>
+
+                  </q-card>
+                </div>
+                <div class="col-md-1" ></div>
+              </div>
+
+
+              <!-- third paper card: test inclusion via github -->
+              <!-- <div class="row">
+                <div class="col-md-1" ></div>
+
+                <div class="q-py-sm col-12 col-lg-10 col-md-10">
+                  <q-card v-for="pr in projects" inline @mouseover="hoverOver(1)" @mouseout="hoverOutTimeout(1)" style="border: none;"
+                    class="text-left" flat bordered @click="goTo(pr.projectURL)">
+
+                    <q-card-section class="text-left">
+                      <div class="row">
+                      <div class="col-8 q-pl-md q-pr-lg">
+                        <div class="row">
+                          <div class="text-caption text-grey-9 q-mt-sm">
+                            {{pr.projectInfo.language}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
+                            class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">{{pr.projectName}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="text-caption text-grey-9 q-mt-sm">
+                            {{pr.projectInfo.description}}
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-3 q-py-md q-pl-lg q-pr-md">
+                          <div class="row q-pb-xs">
+                            <q-img style="height: 50px;width:50px;" :src="pr.imgSrc" >
+                            </q-img>
+                          </div>
+                          <div class="row q-py-xs">
+                            <a :href="pr.projectInfo.homepage" target="_blank" style="color: #4b4f51; text-decoration: none;">doi: 10.0000/abc-31415</a>
+                          </div>
+                        </div>
+                      </div>
+
+                    </q-card-section>
+
+                  </q-card>
+                </div>
+                <div class="col-md-1" ></div>
+              </div> -->
+
+
+              <br>
+              <br>
+            </div>
+          </div>
+
+
+
+          <!-- footer -->
+          <q-toolbar class="flex flex-center text-white text-center bg-dark" 
+            :style="'border-top: 5px solid ' + bg_color">
+            <div class="q-pa-sm q-gutter-sm">
+              <q-btn round type="a" href="https://twitter.com/brainhackorg"
+                :style="'background:'+ theme_color +'; color: white !important;'" icon="fab fa-twitter" >
+              </q-btn>
+              <q-btn round type="a" href="https://github.com/brainhack-proceedings"
+                :style="'background:'+ theme_color +'; color: white !important;'" icon="fab fa-github" >
+              </q-btn>
+              <q-btn round type="a" href="mailto:brainhack@gmail.com"
+                :style="'background:'+ theme_color +'; color: white !important;'" icon="email" >
+              </q-btn>
+              <!-- <q-btn round type="a" href="https://github.com/brainhack-proceedings/proceedings.brainhack.org"
+                :style="'background:'+ theme_color +'; color: white !important;'" glossy text-color="black"
+                icon="fas fa-heart" >
+                <q-tooltip content-class="bg-accent" color="theme_color">Give our repo a star</q-tooltip>
+              </q-btn> -->
+              <br/><br>
+              Made with &nbsp; ❤ &nbsp; Brainhack Proceedings CC BY 4.0 <br/>
+            </div>
+          </q-toolbar>
+
+        </q-page>
+      </q-page-container>
+    </q-layout>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.umd.min.js"></script>
+
+
+
+  <script>
+    const { getScrollTarget, setScrollPosition } = Quasar.scroll
+
+    app = new Vue({
+      el: "#q-app",
+      data() {
+        return {
+          selected_tab: 't_0',
+          bg_color: '#4b4f51',
+          hover: false,
+          active: false,
+          theme_color: '#668fa6',
+          primary: 'red',
+          background_style: '#668fa6',
+          paper_heading_1: [],
+          paper_heading_color_1: '#4b4f51',
+        }
+      },
+      methods: {
+        scrollToElement(id) {
+          let el = document.getElementById(id)
+          const target = getScrollTarget(el)
+          const offset = el.offsetTop + 3
+          const duration = 900
+          setScrollPosition(target, offset, duration)
+        },
+        goTo(url){
+          window.location.href = url;
+        },
+        hoverOver: function (index) {
+          this['paper_heading_color_' + index] = this.theme_color;
+          this['paper_heading_' + index] = ['animated', 'bounceIn'];
+        },
+        hoverOutTimeout: function (index) {
+          this['paper_heading_color_' + index] = '#4b4f51';
+          setTimeout(() => {
+            this['paper_heading_' + index] = [];
+          }, 1000);
+        },
+      //   async get_data_from_md(url) {
+      //     var pr = new Promise((resolve, reject) => {
+      //       var xhr = new XMLHttpRequest();
+      //       xhr.open('GET', url);
+      //       xhr.send(null);
+      //       xhr.onreadystatechange = function () {
+      //         var DONE = 4; // readyState 4 means the request is done.
+      //         var OK = 200; // status 200 is a successful return.
+      //         let imgSrc = null;
+      //         if (xhr.readyState === DONE) {
+      //           if (xhr.status === OK) {
+      //             const text = xhr.responseText;
+      //             const regexImage = /\((https:[^\) ]+)\)/;
+      //             const regexMattermost = /https:\/\/mattermost.brainhack.org\/brainhack\/channels\/([^"\)]+)/;
+      //             const arrImage = text.match(regexImage);
+      //             const arrMattermost = text.match(regexMattermost);
+      //             let image, mattermost;
+      //             if(arrImage !== null && arrImage[1] !== null) {
+      //               image = arrImage[1];
+      //             }
+      //             if(arrMattermost !== null && arrMattermost[1] !== null) {
+      //               mattermost = arrMattermost[1];
+      //             }
+      //             resolve({image, mattermost});
+      //           } else {
+      //             // console.log('Error: ' + xhr.status); // An error occurred during the request.
+      //             resolve(null);
+      //           }
+      //         }
+      //       }
+      //     });
+      //   return pr;
+      // },
+      //   async get_data_from_readme(repoURL) {
+      //     const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
+      //     let result;    
+      //     result = await get_data_from_md(url + '/README.md');
+      //     if(result === null) {
+      //       result = await get_data_from_md(url + '/ReadMe.md');
+      //     } else if(result === null) {
+      //       result = await get_data_from_md(url + '/readme.md');
+      //     } else if(result === null) {
+      //       result = await get_data_from_md(url + '/Readme.md');
+      //     }
+
+      //     return result;
+      //   },
+
+      //   async get_repo_list() {
+      //     const xhr = new XMLHttpRequest();
+      //     xhr.open('GET', 'https://api.github.com/search/repositories?q=topic:brainhack-proceedings fork:true');
+      //     xhr.send(null);
+      //     xhr.onreadystatechange = function () {
+      //       const DONE = 4;
+      //       const OK = 200;
+      //       if (xhr.readyState === DONE) {
+      //         if (xhr.status === OK) {
+      //           const res = JSON.parse(xhr.responseText);
+      //           for(let repo of res.items) {
+      //             ((aRepo) => {
+      //               const {
+      //                 name,
+      //                 authors,
+      //                 html_url,
+      //                 language,
+      //               } = aRepo;
+      //               get_data_from_readme(html_url).then((res) => {
+      //                 const {image, mattermost} = res;
+      //                 app.projects.push({
+      //                   imgSrc:(image)?image:defaultImages[parseInt(defaultImages.length*Math.random())],
+      //                   projectName: name,
+      //                   projectAuthors: authors,
+      //                   projectURL: html_url,
+      //                   projectInfo: {html_url, language},
+      //                 })
+      //               }).catch((e)=>console.log);
+      //             })(repo);
+      //           }
+      //         } else {
+      //           console.log('Error: ' + xhr.status);
+      //         }
+      //       }
+      //     };
+      //   }
+      }
+    });
+  </script>
+
+
+  <!-- <script>
+    let main;
+    let app;
+    async function get_data_from_md(url) {
+      var pr = new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.send(null);
+        xhr.onreadystatechange = function () {
+          var DONE = 4; // readyState 4 means the request is done.
+          var OK = 200; // status 200 is a successful return.
+          let imgSrc = null;
+          if (xhr.readyState === DONE) {
+            if (xhr.status === OK) {
+              const text = xhr.responseText;
+              const regexImage = /\((https:[^\) ]+)\)/;
+              const regexMattermost = /https:\/\/mattermost.brainhack.org\/brainhack\/channels\/([^"\)]+)/;
+              const arrImage = text.match(regexImage);
+              const arrMattermost = text.match(regexMattermost);
+              let image, mattermost;
+              if(arrImage !== null && arrImage[1] !== null) {
+                image = arrImage[1];
+              }
+              if(arrMattermost !== null && arrMattermost[1] !== null) {
+                mattermost = arrMattermost[1];
+              }
+              resolve({image, mattermost});
+            } else {
+              // console.log('Error: ' + xhr.status); // An error occurred during the request.
+              resolve(null);
+            }
+          }
+        }
+      });
+    return pr;
+  }
+    async function get_data_from_readme(repoURL) {
+      const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
+      let result;    
+      result = await get_data_from_md(url + '/README.md');
+      if(result === null) {
+        result = await get_data_from_md(url + '/ReadMe.md');
+      } else if(result === null) {
+        result = await get_data_from_md(url + '/readme.md');
+      } else if(result === null) {
+        result = await get_data_from_md(url + '/Readme.md');
+      }
+
+      return result;
+    }
+
+    function get_repo_list() {
+      const defaultImages = [
+        "https://generative-placeholders.glitch.me/image?width=300&height=200&style=triangles",
+        "https://generative-placeholders.glitch.me/image?width=300&height=200"
+      ]
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://api.github.com/search/repositories?q=topic:brainhack-proceedings fork:true');
+      xhr.send(null);
+      xhr.onreadystatechange = function () {
+        const DONE = 4;
+        const OK = 200;
+        if (xhr.readyState === DONE) {
+          if (xhr.status === OK) {
+            const res = JSON.parse(xhr.responseText);
+            for(let repo of res.items) {
+              ((aRepo) => {
+                const {
+                  name,
+                  authors,
+                  html_url,
+                  language,
+                } = aRepo;
+                get_data_from_readme(html_url).then((res) => {
+                  const {image, mattermost} = res;
+                  app.projects.push({
+                    imgSrc:(image)?image:defaultImages[parseInt(defaultImages.length*Math.random())],
+                    projectName: name,
+                    projectAuthors: authors,
+                    projectURL: html_url,
+                    projectInfo: {html_url, language},
+                  })
+                }).catch((e)=>console.log);
+              })(repo);
+            }
+          } else {
+            console.log('Error: ' + xhr.status);
+          }
+        }
+      };
+    }
+    get_repo_list();
+  </script> -->
+
+
+
+  <style>
+    .main_line {
+      font-size: 75px;
+      letter-spacing: 5px;
+      line-height: 60px;
+      font-weight: 600;
+    }
+
+    .custom-caption {
+      text-align: center;
+      padding: 12px;
+      color: #fff;
+    }
+
+    .animation_1 {
+      -webkit-animation: bounceIn 1s ease-in 800ms both;
+      animation: bounceIn 1s ease-in 800ms both;
+    }
+
+    .animation_2 {
+      -webkit-animation: flipInX 2s ease-in-out 800ms both;
+      animation: flipInX 1s ease-in-out 800ms both;
+    }
+
+    .animation_3 {
+      -webkit-animation: lightSpeedIn 1s ease-in 800ms both;
+      animation: lightSpeedIn 1s ease-in 800ms both;
+    }
+
+    .description {
+      padding: 10px;
+      background-color: #000;
+      color: #fff;
+      box-shadow: 1px 1px 2px #e6e6e6;
+    }
+
+    .my-header {
+      width: 200px;
+      top: 0;
+      height: 45px;
+      color: #000;
+      background-color: hsla(0, 0%, 100%, 0.8);
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 17px;
+      margin: 20px 0 0 68px;
+      padding: 25px;
+    }
+
+    .my-pattern {
+      width: 100%;
+      position: absolute;
+      top: 40%;
+    }
+
+    .my-logo-font {
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+    .my-font {
+      /* font-family: 'Open Sans', sans-serif; */
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .my-text {
+      width: 100%;
+      top: 0;
+      height: 90px;
+      color: #fff;
+      text-align: center;
+      font-size: 15px;
+      margin: 79px 0 0 0;
+      padding: 20px;
+      line-height: normal;
+      font-family: Roboto, sans-serif;
+      font-style: italic;
+    }
+
+    .my-button-container {
+      width: 100%;
+    }
+
+    .my-button {
+      text-decoration: none;
+      margin: 0 0 20px 0;
+      text-align: center;
+      padding: 7px 14px;
+      background-color: #000;
+      color: #fff;
+      /* text-transform: uppercase; */
+      box-shadow: 0 0 1px #000;
+      transition-delay: 0.2s;
+    }
+
+    .my-button:hover {
+      box-shadow: 0 0 5px #000;
+    }
+
+    .box-shadow:hover {
+      box-shadow: 0 10px 13px -6px rgba(0, 0, 0, 0.2), 0 20px 31px 3px rgba(0, 0, 0, 0.14), 0 8px 38px 7px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .my-card {
+      width: 100%;
+      height: 100px;
+      margin-top: 10px;
+    }
+
+    .team-header {
+      width: 100%;
+      top: 0;
+      height: 45px;
+      color: #fff;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 17px;
+      margin: 60px 0 0 0;
+      padding: 12px;
+    }
+
+    .team-text {
+      width: 100%;
+      top: 0;
+      height: 90px;
+      color: #fff;
+      text-align: center;
+      font-size: 15px;
+      margin: 100px 0 0 0;
+      padding: 20px;
+      line-height: normal;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+
+    .quote {
+      background: url(/img/pattern1.png);
+      background-size: cover;
+      background-position: 50%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    .pricing {
+      background: url(/statics/images/pricing.jpg);
+      background-size: cover;
+      background-position: 50%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    .contact_us {
+      background: url(/statics/images/contact_us.jpg);
+      background-size: cover;
+      background-position: 50%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    .custom_tab {
+      width: 130px;
+    }
+  </style>
+
+
+</body>
+
+</html>
