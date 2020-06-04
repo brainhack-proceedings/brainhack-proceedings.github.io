@@ -403,7 +403,7 @@
   }
 
   async function collectPapers() {
-      const list = await readPapers();
+      const list = await getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
       for(let i=0;i<list.length;i++) {
         // const repoOwner = list[i].owner.login;
         // const repoName = list[i].name;
@@ -452,29 +452,6 @@
           paper_heading_color_1: '#4b4f51',
           headerState: false,
           papers: []
-          // papers: [
-          //   {
-          //     publishStatus: "Published",
-          //     title: "My wonderful awesome paper 1. Such surface, much open, very anatomy, brain all night: Wow.",
-          //     authors: "RoboKat KR, Doge D, Shiba L & Wow H.",
-          //     doi: "10.110001/sdfg/14",
-          //     githubAvatar: "https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4"
-          //   },
-          //   {
-          //     publishStatus: "Published",
-          //     title: "Awesome paper #2. Such dance, much open, very music, rock all night: Wow.",
-          //     authors: "Gangnam S, Skeleton S & Coffin D.",
-          //     doi: "doi: 10.0000/abc-31415",
-          //     githubAvatar: "https://avatars1.githubusercontent.com/u/6297454?s=400&u=63caaf4ecedbdc64dc6798345aa19807a5eb35df&v=4"
-          //   },
-          //   {
-          //     publishStatus: "Published",
-          //     title: "My awful paper 1. Such surface, much open, very anatomy, brain all night: Wow.",
-          //     authors: "RoboKat KR, Doge D, Shiba L & Wow H.",
-          //     doi: "10.37694dfg.g./fg",
-          //     githubAvatar: "https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4"
-          //   }
-          // ]
         }
       },
       methods: {
