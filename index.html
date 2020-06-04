@@ -8,7 +8,11 @@
   <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.min.css" rel="stylesheet" type="text/css">
-
+  <link
+  rel="icon"
+  sizes="any"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='grey'/%3E%3C/svg%3E"
+ >
   <style>
     [v-cloak] {display: none}
 
@@ -215,6 +219,9 @@
                               <q-chip square size="sm">
                               {{paper.publishStatus}}
                               </q-chip>
+                              <span>
+                                {{paper.date}}
+                              </span>
                           </div>
                           <div class="row">
                             <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
@@ -283,6 +290,154 @@
   <script>
     const { getScrollTarget, setScrollPosition } = Quasar.scroll
 
+    async function getPapers(url) {
+    const res = await fetch(url);
+    const list = await res.json();
+    return list;
+
+    // const filename = "repos.json";
+    // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(list));
+    // var a = document.createElement('a');
+    // a.href = csvData;
+    // a.download = filename;
+    // document.body.appendChild(a);
+    // a.click();
+  }
+  async function readPapers() {
+    const res = await fetch("repos.json");
+    const list = await res.json();
+    return list;
+  }
+  function parsePaper(md) {
+    const lines = md.split("\n");
+    const title = lines
+                    .filter((line)=>(line.match("title:")))[0]
+                    .match(/'([^']*)'/)[1];
+    const doi = lines
+                  .filter((line)=>(line.match("gigascience-ref:")))[0]
+                  .match(/{doi:([^}]+)}/)[1];
+    const lastnames = lines
+                        .filter((line)=>(line.match("  surname: ")))
+                        .map((str) => str.match(/  surname: (.*)/)[1]);
+    const firstnames = lines
+                        .filter((line)=>(line.match("  firstname: ")))
+                        .map((str) => str.match(/  firstname: (.*)/)[1]);
+    const arr = [];
+    for(let i=0;i<firstnames.length;i++) {
+      arr.push(`${firstnames[i]} ${lastnames[i]}`);
+    }
+    const authors = arr.join(", ");
+
+    return {title, doi, authors};
+
+  }
+
+  // async function getPaperPath(repoOwner, repoName) {
+  //   const url = `https://api.github.com/search/code?q=title+repo:${repoOwner}/${repoName}+filename:brainhack-report.md`;
+  //   const res = await fetch(url);
+  //   const info = res.json();
+  //   const path = info.items[0].path;
+
+  //   return path;
+  // }
+  // async function getPaper(repoOwner, repoName, path) {
+  //   const mdurl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/${path}`;
+  //   const res = await fetch(mdurl);
+  //   const md = await res.text();
+
+  //   return md;
+  // }
+  async function getPaper(repoURL) {
+    const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
+    let res;
+    let md;
+    try {
+      res = await fetch(url + '/brainhack-report.md');
+      md = await res.text();
+    } catch (err) {
+      throw new Error(err);
+    }
+
+    return md;
+  }
+
+  async function readPaper() {
+    const res = await fetch("paper.md");
+    const md = await res.text();
+    return md;
+  }
+  function parseRepo(info) {
+    const date = info.pushed_at;
+    const format = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
+    const [{ value: month },,{ value: day },,{ value: year }] = format.formatToParts(new Date(date));
+    const githubRepo = info.html_url;
+    let githubAvatar = "";
+    if(typeof info.parent !== "undefined") {
+      githubAvatar = info.parent.owner.avatar_url;
+    } else {
+      githubAvatar = info.owner.avatar_url;
+    }
+
+    return {githubRepo, githubAvatar, year, month, day};
+  }
+  async function getRepo(url) {
+    const apiurl = url.replace("github.com","api.github.com/repos");
+    const res = await fetch(apiurl);
+    const info = await res.json();
+
+    return info;
+
+    // const filename = "repo.json";
+    // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(info));
+    // var a = document.createElement('a');
+    // a.href = csvData;
+    // a.download = filename;
+    // document.body.appendChild(a);
+    // a.click();
+  }
+  async function readRepo(url) {
+    const res = await fetch(url);
+    const info = await res.json();
+
+    return info;
+  }
+
+  async function collectPapers() {
+      const list = await readPapers();
+      for(let i=0;i<list.length;i++) {
+        // const repoOwner = list[i].owner.login;
+        // const repoName = list[i].name;
+        // const path = await getPaperPath(repoOwner, repoName);
+        // const md = await getPaper(repoOwner, repoName, path);
+        try {
+          const md = await getPaper(list[i].html_url);
+          const {title, doi, authors} = parsePaper(md);
+          const info = await getRepo(list[i].html_url);
+          const {githubRepo, githubAvatar, year, month, day} = parseRepo(info);
+          app.papers.push({
+            publishStatus: "Published",
+            date: `${day} ${month} ${year}`,
+            title, doi, authors, githubRepo, githubAvatar
+          })
+          console.log(`
+    title:   ${title}
+    doi:     ${doi}
+    authors: ${authors}
+    repo:    ${githubRepo}
+    avatar:  ${githubAvatar}
+  `)
+        } catch (err) {
+          // throw new Error(err);
+          console.log(err);
+        }
+      }
+    }
+  // getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
+  // readPapers();
+  // readPaper();
+  // getRepo("https://api.github.com/repos/Brainhack-Proceedings-2015/Badhwar_HBM_Brainspell");
+  // readRepo("repo.json");
+
     app = new Vue({
       el: "#q-app",
       data() {
@@ -296,29 +451,30 @@
           paper_heading_1: [],
           paper_heading_color_1: '#4b4f51',
           headerState: false,
-          papers: [
-            {
-              publishStatus: "Published",
-              title: "My wonderful awesome paper 1. Such surface, much open, very anatomy, brain all night: Wow.",
-              authors: "RoboKat KR, Doge D, Shiba L & Wow H.",
-              doi: "10.110001/sdfg/14",
-              githubAvatar: "https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4"
-            },
-            {
-              publishStatus: "Published",
-              title: "Awesome paper #2. Such dance, much open, very music, rock all night: Wow.",
-              authors: "Gangnam S, Skeleton S & Coffin D.",
-              doi: "doi: 10.0000/abc-31415",
-              githubAvatar: "https://avatars1.githubusercontent.com/u/6297454?s=400&u=63caaf4ecedbdc64dc6798345aa19807a5eb35df&v=4"
-            },
-            {
-              publishStatus: "Rejected",
-              title: "My awful paper 1. Such surface, much open, very anatomy, brain all night: Wow.",
-              authors: "RoboKat KR, Doge D, Shiba L & Wow H.",
-              doi: "10.37694dfg.g./fg",
-              githubAvatar: "https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4"
-            }
-          ]
+          papers: []
+          // papers: [
+          //   {
+          //     publishStatus: "Published",
+          //     title: "My wonderful awesome paper 1. Such surface, much open, very anatomy, brain all night: Wow.",
+          //     authors: "RoboKat KR, Doge D, Shiba L & Wow H.",
+          //     doi: "10.110001/sdfg/14",
+          //     githubAvatar: "https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4"
+          //   },
+          //   {
+          //     publishStatus: "Published",
+          //     title: "Awesome paper #2. Such dance, much open, very music, rock all night: Wow.",
+          //     authors: "Gangnam S, Skeleton S & Coffin D.",
+          //     doi: "doi: 10.0000/abc-31415",
+          //     githubAvatar: "https://avatars1.githubusercontent.com/u/6297454?s=400&u=63caaf4ecedbdc64dc6798345aa19807a5eb35df&v=4"
+          //   },
+          //   {
+          //     publishStatus: "Published",
+          //     title: "My awful paper 1. Such surface, much open, very anatomy, brain all night: Wow.",
+          //     authors: "RoboKat KR, Doge D, Shiba L & Wow H.",
+          //     doi: "10.37694dfg.g./fg",
+          //     githubAvatar: "https://avatars3.githubusercontent.com/u/2310732?s=400&u=7e58f9894039ba1fa22e5308bc4d028b68f5d57a&v=4"
+          //   }
+          // ]
         }
       },
       methods: {
@@ -346,6 +502,8 @@
         }
       }
     });
+
+    collectPapers();
   </script>
 
   <script>
@@ -368,7 +526,6 @@
       }
     }
   </script>
-
 </body>
 
 </html>
