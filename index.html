@@ -310,7 +310,7 @@
     async function getPapers(url) {
       const res = await fetch(url);
       const list = await res.json();
-      return list;
+      return list.items;
 
       // const filename = "repos.json";
       // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(list));
@@ -330,9 +330,10 @@
       const title = lines
                       .filter((line)=>(line.match("title:")))[0]
                       .match(/'([^']*)'/)[1];
-      const doi = lines
-                    .filter((line)=>(line.match("gigascience-ref:")))[0]
-                    .match(/{doi:([^}]+)}/)[1];
+      const doi = "10001.1001";
+      // const doi = lines
+      //               .filter((line)=>(line.match("gigascience-ref:")))[0]
+      //               .match(/{doi:([^}]+)}/)[1];
       const lastnames = lines
                           .filter((line)=>(line.match("  surname: ")))
                           .map((str) => str.match(/  surname: (.*)/)[1]);
@@ -369,7 +370,7 @@
       let res;
       let md;
       try {
-        res = await fetch(url + '/brainhack-report.md');
+        res = await fetch(url + '/report.md');
         md = await res.text();
       } catch (err) {
         throw new Error(err);
@@ -420,12 +421,18 @@
     }
 
     async function collectPapers() {
-      const list = await getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
+      // const list = await getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
+      const list = await getPapers("https://api.github.com/search/repositories?q=topic:brainhack-proceeding-report fork:true user:brainhack-proceedings");
       for(let i=0;i<list.length;i++) {
         // const repoOwner = list[i].owner.login;
         // const repoName = list[i].name;
         // const path = await getPaperPath(repoOwner, repoName);
         // const md = await getPaper(repoOwner, repoName, path);
+
+        if(list[i].name === "template") {
+          continue;
+        }
+
         try {
           const md = await getPaper(list[i].html_url);
           const {title, doi, authors} = parsePaper(md);
