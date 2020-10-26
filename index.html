@@ -79,7 +79,15 @@
       <!-- header -->
       <q-header v-model="headerState" v-scroll="scrollFunction" class="q-py-none bg-dark" >
         <q-toolbar class="items-bottom">
-          <span style="font-size: 31px;margin-left:30px" class="my-logo-font text-h6 text-white text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light">Proceedings</span>
+          <a href="/" style="text-decoration: none;" class="text-white">
+            <span
+              style="font-size: 31px;margin-left:30px"
+              class="my-logo-font text-h6 text-white text-weight-bolder"
+            >BRAINHACK</span><span
+              :style="'font-size: 31px;'"
+              class="my-font text-h6 q-mr-md text-weight-light"
+            >Proceedings</span>
+          </a>
           <q-space></q-space>
           <q-tabs no-caps q-pb-none >
             <q-tab
@@ -87,15 +95,15 @@
               label="About" >
             </q-tab>
             <q-tab
-              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/papers')"
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/papers')"
               label="Papers" >
             </q-tab>
             <q-tab
-              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/blog')"
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/blog')"
               label="Blog" >
             </q-tab>
             <q-tab
-              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://github.com/brainhack-proceedings/submit')"
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
               label="Submit" >
             </q-tab>
           </q-tabs>
@@ -113,7 +121,15 @@
               <svg style="width:100%;height:200px"></svg>
 
               <q-toolbar class="items-bottom">
-                <span style="font-size:31px;margin-left:30px" class="my-logo-font text-h6 text-white text-weight-bolder">BRAINHACK</span><span :style="'font-size: 31px;'" class="my-font text-h6 q-mr-md text-weight-light text-white">Proceedings</span>
+                <a href="/" style="text-decoration: none;" class="text-white">
+                  <span
+                    style="font-size: 31px;margin-left:30px"
+                    class="my-logo-font text-h6 text-white text-weight-bolder"
+                  >BRAINHACK</span><span
+                    :style="'font-size: 31px;'"
+                    class="my-font text-h6 q-mr-md text-weight-light"
+                  >Proceedings</span>
+                </a>
                 <q-space></q-space>
                 <q-tabs no-caps q-pb-none >
                   <q-tab
@@ -121,15 +137,15 @@
                     label="About" >
                   </q-tab>
                   <q-tab
-                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/papers')"
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/papers')"
                     label="Papers" >
                   </q-tab>
                   <q-tab
-                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.github.io/blog')"
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/blog')"
                     label="Blog" >
                   </q-tab>
                   <q-tab
-                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://github.com/brainhack-proceedings/submit')"
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
                     label="Submit" >
                   </q-tab>
                 </q-tabs>
@@ -172,10 +188,10 @@
                 <div class="col-md-1"></div>
 
                 <div class="col-12 col-lg-6 col-md-9 text-left">
-                  <q-btn flat dense no-caps class="text-weight-regular q-mr-lg q-px-md q-py-none" type="a" href="https://github.com/brainhack-proceedings/submit" size="lg"
+                  <q-btn flat dense no-caps class="text-weight-regular q-mr-lg q-px-md q-py-none" type="a" href="/submit" size="lg"
                     :style="'background:'+ theme_color +'; color: white; font-size: 21px;'" label="Submit a paper" >
                   </q-btn>
-                  <q-btn flat dense no-caps class="text-weight-regular q-px-md q-py-none" type="a" href="https://github.com/brainhack-proceedings" size="lg"
+                  <q-btn flat dense no-caps class="text-weight-regular q-px-md q-py-none" type="a" href="/review" size="lg"
                     :style="'background:'+ theme_color +'; color: white'" label="Volunteer to review" >
                   </q-btn>
                 </div>
@@ -291,118 +307,118 @@
     const { getScrollTarget, setScrollPosition } = Quasar.scroll
 
     async function getPapers(url) {
-    const res = await fetch(url);
-    const list = await res.json();
-    return list;
+      const res = await fetch(url);
+      const list = await res.json();
+      return list;
 
-    // const filename = "repos.json";
-    // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(list));
-    // var a = document.createElement('a');
-    // a.href = csvData;
-    // a.download = filename;
-    // document.body.appendChild(a);
-    // a.click();
-  }
-  async function readPapers() {
-    const res = await fetch("repos.json");
-    const list = await res.json();
-    return list;
-  }
-  function parsePaper(md) {
-    const lines = md.split("\n");
-    const title = lines
-                    .filter((line)=>(line.match("title:")))[0]
-                    .match(/'([^']*)'/)[1];
-    const doi = lines
-                  .filter((line)=>(line.match("gigascience-ref:")))[0]
-                  .match(/{doi:([^}]+)}/)[1];
-    const lastnames = lines
-                        .filter((line)=>(line.match("  surname: ")))
-                        .map((str) => str.match(/  surname: (.*)/)[1]);
-    const firstnames = lines
-                        .filter((line)=>(line.match("  firstname: ")))
-                        .map((str) => str.match(/  firstname: (.*)/)[1]);
-    const arr = [];
-    for(let i=0;i<firstnames.length;i++) {
-      arr.push(`${firstnames[i]} ${lastnames[i]}`);
+      // const filename = "repos.json";
+      // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(list));
+      // var a = document.createElement('a');
+      // a.href = csvData;
+      // a.download = filename;
+      // document.body.appendChild(a);
+      // a.click();
     }
-    const authors = arr.join(", ");
+    async function readPapers() {
+      const res = await fetch("repos.json");
+      const list = await res.json();
+      return list;
+    }
+    function parsePaper(md) {
+      const lines = md.split("\n");
+      const title = lines
+                      .filter((line)=>(line.match("title:")))[0]
+                      .match(/'([^']*)'/)[1];
+      const doi = lines
+                    .filter((line)=>(line.match("gigascience-ref:")))[0]
+                    .match(/{doi:([^}]+)}/)[1];
+      const lastnames = lines
+                          .filter((line)=>(line.match("  surname: ")))
+                          .map((str) => str.match(/  surname: (.*)/)[1]);
+      const firstnames = lines
+                          .filter((line)=>(line.match("  firstname: ")))
+                          .map((str) => str.match(/  firstname: (.*)/)[1]);
+      const arr = [];
+      for(let i=0;i<firstnames.length;i++) {
+        arr.push(`${firstnames[i]} ${lastnames[i]}`);
+      }
+      const authors = arr.join(", ");
 
-    return {title, doi, authors};
+      return {title, doi, authors};
 
-  }
-
-  // async function getPaperPath(repoOwner, repoName) {
-  //   const url = `https://api.github.com/search/code?q=title+repo:${repoOwner}/${repoName}+filename:brainhack-report.md`;
-  //   const res = await fetch(url);
-  //   const info = res.json();
-  //   const path = info.items[0].path;
-
-  //   return path;
-  // }
-  // async function getPaper(repoOwner, repoName, path) {
-  //   const mdurl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/${path}`;
-  //   const res = await fetch(mdurl);
-  //   const md = await res.text();
-
-  //   return md;
-  // }
-  async function getPaper(repoURL) {
-    const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
-    let res;
-    let md;
-    try {
-      res = await fetch(url + '/brainhack-report.md');
-      md = await res.text();
-    } catch (err) {
-      throw new Error(err);
     }
 
-    return md;
-  }
+    // async function getPaperPath(repoOwner, repoName) {
+    //   const url = `https://api.github.com/search/code?q=title+repo:${repoOwner}/${repoName}+filename:brainhack-report.md`;
+    //   const res = await fetch(url);
+    //   const info = res.json();
+    //   const path = info.items[0].path;
 
-  async function readPaper() {
-    const res = await fetch("paper.md");
-    const md = await res.text();
-    return md;
-  }
-  function parseRepo(info) {
-    const date = info.pushed_at;
-    const format = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
-    const [{ value: month },,{ value: day },,{ value: year }] = format.formatToParts(new Date(date));
-    const githubRepo = info.html_url;
-    let githubAvatar = "";
-    if(typeof info.parent !== "undefined") {
-      githubAvatar = info.parent.owner.avatar_url;
-    } else {
-      githubAvatar = info.owner.avatar_url;
+    //   return path;
+    // }
+    // async function getPaper(repoOwner, repoName, path) {
+    //   const mdurl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/${path}`;
+    //   const res = await fetch(mdurl);
+    //   const md = await res.text();
+
+    //   return md;
+    // }
+    async function getPaper(repoURL) {
+      const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
+      let res;
+      let md;
+      try {
+        res = await fetch(url + '/brainhack-report.md');
+        md = await res.text();
+      } catch (err) {
+        throw new Error(err);
+      }
+
+      return md;
     }
 
-    return {githubRepo, githubAvatar, year, month, day};
-  }
-  async function getRepo(url) {
-    const apiurl = url.replace("github.com","api.github.com/repos");
-    const res = await fetch(apiurl);
-    const info = await res.json();
+    async function readPaper() {
+      const res = await fetch("paper.md");
+      const md = await res.text();
+      return md;
+    }
+    function parseRepo(info) {
+      const date = info.pushed_at;
+      const format = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
+      const [{ value: month },,{ value: day },,{ value: year }] = format.formatToParts(new Date(date));
+      const githubRepo = info.html_url;
+      let githubAvatar = "";
+      if(typeof info.parent !== "undefined") {
+        githubAvatar = info.parent.owner.avatar_url;
+      } else {
+        githubAvatar = info.owner.avatar_url;
+      }
 
-    return info;
+      return {githubRepo, githubAvatar, year, month, day};
+    }
+    async function getRepo(url) {
+      const apiurl = url.replace("github.com","api.github.com/repos");
+      const res = await fetch(apiurl);
+      const info = await res.json();
 
-    // const filename = "repo.json";
-    // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(info));
-    // var a = document.createElement('a');
-    // a.href = csvData;
-    // a.download = filename;
-    // document.body.appendChild(a);
-    // a.click();
-  }
-  async function readRepo(url) {
-    const res = await fetch(url);
-    const info = await res.json();
+      return info;
 
-    return info;
-  }
+      // const filename = "repo.json";
+      // var csvData = 'data:text/ascii;charset=utf-8,'+encodeURIComponent(JSON.stringify(info));
+      // var a = document.createElement('a');
+      // a.href = csvData;
+      // a.download = filename;
+      // document.body.appendChild(a);
+      // a.click();
+    }
+    async function readRepo(url) {
+      const res = await fetch(url);
+      const info = await res.json();
 
-  async function collectPapers() {
+      return info;
+    }
+
+    async function collectPapers() {
       const list = await getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
       for(let i=0;i<list.length;i++) {
         // const repoOwner = list[i].owner.login;
@@ -420,23 +436,23 @@
             title, doi, authors, githubRepo, githubAvatar
           })
           console.log(`
-    title:   ${title}
-    doi:     ${doi}
-    authors: ${authors}
-    repo:    ${githubRepo}
-    avatar:  ${githubAvatar}
-  `)
+            title:   ${title}
+            doi:     ${doi}
+            authors: ${authors}
+            repo:    ${githubRepo}
+            avatar:  ${githubAvatar}
+          `);
         } catch (err) {
           // throw new Error(err);
           console.log(err);
         }
       }
     }
-  // getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
-  // readPapers();
-  // readPaper();
-  // getRepo("https://api.github.com/repos/Brainhack-Proceedings-2015/Badhwar_HBM_Brainspell");
-  // readRepo("repo.json");
+    // getPapers("https://api.github.com/users/Brainhack-Proceedings-2015/repos");
+    // readPapers();
+    // readPaper();
+    // getRepo("https://api.github.com/repos/Brainhack-Proceedings-2015/Badhwar_HBM_Brainspell");
+    // readRepo("repo.json");
 
     app = new Vue({
       el: "#q-app",
