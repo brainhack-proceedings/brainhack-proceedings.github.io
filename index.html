@@ -231,33 +231,38 @@
   
                       <q-card-section class="text-left">
                         <div class="row">
-                        <div class="col-8 q-pl-md q-pr-lg">
-                          <div class="row">
-                              <q-chip square size="sm">
-                              {{paper.publishStatus}}
-                              </q-chip>
-                              <span class="text-caption text-weight-light q-pa-xs" >
-                                {{paper.date}}
-                              </span>
-                          </div>
-                          <div class="row">
-                            <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
-                              class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">{{paper.title}}
+                          <div class="col-7 q-pl-md q-pr-lg">
+                            <div class="row">
+                                <q-chip square size="sm">
+                                {{paper.publishStatus}}
+                                </q-chip>
+                                <span class="text-caption text-weight-light q-pa-xs" >
+                                  {{paper.date}}
+                                </span>
+                            </div>
+                            <div class="row">
+                              <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
+                                class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">{{paper.title}}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="text-caption text-grey-10 q-mt-sm">
+                                {{paper.authors}}
+                              </div>
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="text-caption text-grey-10 q-mt-sm">
-                              {{paper.authors}}
-                            </div>
-                          </div>
-                          </div>
-                          <div class="col-3 q-py-md q-pl-lg q-pr-md">
+                          <div class="col-4 q-py-md q-pl-lg q-pr-md">
                             <div class="row q-pb-xs">
                               <q-img style="height: 50px;width:50px;" :src="paper.githubAvatar" >
                               </q-img>
                             </div>
                             <div class="row q-py-xs">
-                              <a :href="'https:doi.org/' + paper.doi" target="_blank" style="color: #4b4f51; text-decoration: none;">doi: {{paper.doi}}</a>
+                              <!-- <a :href="'https:doi.org/' + paper.doi" target="_blank" style="color: #4b4f51; text-decoration: none;">doi: {{paper.doi}}</a> -->
+                              <a
+                                :href="'https://brainhack-proceedings.github.io/' + paper.url"
+                                target="_blank"
+                                style="color: #4b4f51; text-decoration: none;"
+                              >https://brainhack-proceedings.github.io/{{paper.url}}</a>
                             </div>
                           </div>
                         </div>
@@ -441,6 +446,7 @@
           app.papers.push({
             publishStatus: "Published",
             date: `${day} ${month} ${year}`,
+            url: list[i].name,
             title, doi, authors, githubRepo, githubAvatar
           })
           console.log(`
