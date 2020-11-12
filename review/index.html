@@ -35,6 +35,10 @@
       line-height: 1.5;
       color: #212121!important;
     }
+    #md a:visited {
+      color:blue !important;
+      /* color: rgb(0, 145, 182) !important; */
+    }
 
     .box-shadow:hover {
       box-shadow: 3px 3px 3px rgba(0,0,0,0.2) !important;
@@ -107,7 +111,7 @@
           <q-space></q-space>
           <q-tabs no-caps q-pb-none >
             <q-tab
-              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
+              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about');"
               label="About" >
             </q-tab>
             <q-tab
@@ -115,8 +119,8 @@
               label="Papers" >
             </q-tab>
             <q-tab
-              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/blog')"
-              label="Blog" >
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.readthedocs.io/en/latest/')"
+              label="Doc" >
             </q-tab>
             <q-tab
               class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
@@ -149,7 +153,7 @@
                 <q-space></q-space>
                 <q-tabs no-caps q-pb-none >
                   <q-tab
-                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/')"
+                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about')"
                     label="About" >
                   </q-tab>
                   <q-tab
@@ -157,8 +161,8 @@
                     label="Papers" >
                   </q-tab>
                   <q-tab
-                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/blog')"
-                    label="Blog" >
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.readthedocs.io/en/latest/')"
+                    label="Doc" >
                   </q-tab>
                   <q-tab
                     class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
