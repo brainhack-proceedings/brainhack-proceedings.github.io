@@ -25,21 +25,21 @@ If at any time you need help from us or anything is unclear, please add a commen
 <!-- Add a title that reflects the content of the object that you plan to submit to the Brainhack Proceedings that describes the content well.-->
 
 **Link to the object repository**: 
-_e.g. `https://github.com/ltetrel/binder-tuto`_
+_e.g. `https://github.com/jdoe/myBrainhackProceeding`_
  
  
 **Authors:** 
-_e.g. `Loic Tetrel`_
+_e.g. `John Doe`_
 
 **Github Handle of the Authors:** 
-_e.g. `Loic Tetrel`_
+_e.g. `@JDoe`_
 
 <!--  **Email of the Authors:** Please list these emails as commented. 
-_e.g. `Loic Tetrel`_ -->
+_e.g. `John Doe`_ -->
 
 **Abstract**
 
-_e.g. `1. A simple intro to binder`, 50 words max
+_e.g. `1. The outcomes of the Brainhack Global Event`, 50 words max
 
 **Data to use:**
 <!-- If your object uses data, add a short description of the data and a link to its source. -->
