@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Brainhack Proceedings</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.min.css" rel="stylesheet" type="text/css">
+  <link
+  rel="icon"
+  sizes="any"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='grey'/%3E%3C/svg%3E"
+ >
+  <style>
+    [v-cloak] {display: none}
+
+    .my-logo-font {
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+    .my-font {
+      font-family: 'Roboto', sans-serif;
+    }
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+
+    .box-shadow:hover {
+      box-shadow: 3px 3px 3px rgba(0,0,0,0.2) !important;
+    }
+    #md a {
+      /* color:blue !important; */
+      color: rgb(0, 145, 182) !important;
+    }
+    #md a:visited {
+      /* color:blue !important; */
+      color: rgb(0, 145, 182) !important;
+    }
+
+    .intro {
+      background: url(/img/pattern1.png);
+      background-size: cover;
+      background-position: 50%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    .custom_tab {
+      width: 80px;
+      min-height:50px !important;
+      color: white
+    }
+  </style>
+  <style>
+    html, body {
+      margin:0;
+    }
+    .b {
+      fill: rgb(59,81,94);
+    }
+    .a {
+      fill: rgba(83,91,96,0.5);
+    }
+    .space1 {
+      margin-top: 2rem;
+    }
+  </style>
+
+<script>
+  window.quasarConfig = {
+    brand: {
+      primary: '#f0f0f0',
+      secondary: '#26A69A',
+      accent: '#668fa6',
+
+      dark: 'rgb(66,67,68)',
+
+      positive: '#21BA45',
+      negative: '#C10015',
+      info: '#31CCEC',
+      warning: '#F2C037'
+    }
+  }
+  </script>
+</head>
+
+<body>
+    <div id="q-app">
+
+    <q-layout v-cloak view="lHh lpr lFf">
+
+      <!-- header -->
+      <q-header v-model="headerState" v-scroll="scrollFunction" class="q-py-none bg-dark" >
+        <q-toolbar class="items-bottom">
+          <a href="/" style="text-decoration: none;" class="text-white">
+            <span
+              style="font-size: 31px;margin-left:30px"
+              class="my-logo-font text-h6 text-white text-weight-bolder"
+            >BRAINHACK</span><span
+              :style="'font-size: 31px;'"
+              class="my-font text-h6 q-mr-md text-weight-light"
+            >Proceedings</span>
+          </a>
+          <q-space></q-space>
+          <q-tabs no-caps q-pb-none >
+            <q-tab
+              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about');"
+              label="About" >
+            </q-tab>
+            <q-tab
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/papers')"
+              label="Papers" >
+            </q-tab>
+            <q-tab
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.readthedocs.io/en/latest/')"
+              label="Doc" >
+            </q-tab>
+            <q-tab
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
+              label="Submit" >
+            </q-tab>
+          </q-tabs>
+        </q-toolbar>
+      </q-header>
+
+      <q-page-container>
+        <q-page>
+
+          <!-- Header landing -->
+          <div class="q-pa-none q-ma-none bg-dark" style="z-index:10px;">
+
+            <div class="q-pa-none q-ma-none bg-dark" >
+
+              <svg style="width:100%;height:200px"></svg>
+
+              <q-toolbar class="items-bottom">
+                <a href="/" style="text-decoration: none;" class="text-white">
+                  <span
+                    style="font-size: 31px;margin-left:30px"
+                    class="my-logo-font text-h6 text-white text-weight-bolder"
+                  >BRAINHACK</span><span
+                    :style="'font-size: 31px;'"
+                    class="my-font text-h6 q-mr-md text-weight-light"
+                  >Proceedings</span>
+                </a>
+                <q-space></q-space>
+                <q-tabs no-caps q-pb-none >
+                  <q-tab
+                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about')"
+                    label="About" >
+                  </q-tab>
+                  <q-tab
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/papers')"
+                    label="Papers" >
+                  </q-tab>
+                  <q-tab
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.readthedocs.io/en/latest/')"
+                    label="Doc" >
+                  </q-tab>
+                  <q-tab
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
+                    label="Submit" >
+                  </q-tab>
+                </q-tabs>
+              </q-toolbar>
+              </div>
+            </div>
+
+          <!-- About section -->
+          <div class="q-px-md bg-primary" >
+
+            <div class="q-px-xl q-pt-xl bg-primary" id="id_about" >
+
+              <!-- Text part 1 -->
+              <div class="row justify-left" >
+                <div class="col-md-1" ></div>
+
+                <div id="md" class="q-py-sm col-12 col-lg-9 col-md-9" ></div>
+                <div class="col-md-2" ></div>
+              </div>
+
+              <!-- Text part 2 -->
+              <div class="q-pb-md row justify-left">
+
+                <div class="col-md-1"></div>
+
+                <div class="q-py-sm col-12 col-lg-6 col-md-9">
+                  <!-- <span class="text-center text-grey-10 text-h5 text-weight-light">
+                    BRAINHACKproceedings is Submit only papers which are real papers,
+                    not just stuff which is not actually a paper
+                    but something else.</span>
+
+                    <div class="space1"></div>
+
+
+                    <p>
+                      First, you click
+                      <a href="https://github.com/brainhack-proceedings/template">here</a>
+                      and make a local fork of our paper template in your own GitHub account.
+                      Change the name of this repository to `YYYY_MM_Lastname_Keyword`, where
+                      `YYYY` is the year, `MM` the month, `Lastname` is the first author's
+                      lastname, and `Keyword` a free keyword to facilitate finding your paper.
+                    </p>
+                    <p>
+                      Next, replace the placeholders with your real paper stuff.
+                      There is 2 files you want to check:
+                      <ul>
+                        <li>report.md</li>. This is the file with all the text and figures.
+                        <li>report.bib</li>. This is the file with the references.
+                      </ul>
+                      You also put all your figure is the `figures` directory.
+                      Make sure figure resolution is nice. You can use `png` format
+                      or `svg` format for vectorial figures.
+                    </p>
+                    <p>
+                      Finally, let us know that your paper is ready for review
+                      by submitting an issue
+                      <a href="https://github.com/brainhack-proceedings/submit/issues">here</a>.
+                    </p>
+                    <p>We will the fork your paper's repository, add you and your
+                      coauthors as members of the Brainhack Proceedings organisation
+                      and start the peer-review process.
+                    </p> -->
+
+                </div>
+
+                <div class="col-md-2"></div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- footer -->
+          <q-toolbar class="flex flex-center text-white text-center bg-dark q-py-xl" 
+            :style="'border-top: 5px solid ' + bg_color">
+            <div class="q-pa-sm q-gutter-sm">
+              <q-btn round type="a" href="https://twitter.com/brainhackorg"
+                :style="'background:'+ theme_color +'; color: white !important;'" icon="fab fa-twitter" >
+              </q-btn>
+              <q-btn round type="a" href="https://github.com/brainhack-proceedings"
+                :style="'background:'+ theme_color +'; color: white !important;'" icon="fab fa-github" >
+              </q-btn>
+              <q-btn round type="a" href="mailto:brainhack@gmail.com"
+                :style="'background:'+ theme_color +'; color: white !important;'" icon="email" >
+              </q-btn>
+              Made with &nbsp; ❤ &nbsp; Brainhack Proceedings CC BY 4.0 <br/>
+            </div>
+          </q-toolbar>
+
+        </q-page>
+      </q-page-container>
+    </q-layout>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.umd.min.js"></script>
+
+  <script>
+    const svg = document.querySelector("svg");
+    const ncols = 33, nrows = 4, o = 50;
+    const minr = 10;
+    const d = (window.outerWidth - 2*o)/(ncols-1);
+    const height = 1.5*o + (nrows-1)*d;
+    const r = d/140;
+    svg.innerHTML = `<rect x="0" y="0" width="${2*o+(ncols-1)*d}" height="${height}" fill="rgb(66,67,68)"/>`
+    svg.style.height = height;
+    for(let j=0;j<nrows;j++) {
+      for(let i=0;i<ncols;i++) {
+        const x = o + i*d;
+        const y = o + j*d;
+        const r1 = (i+minr)*r;
+        const r2 = ((ncols-1-i)+minr)*r;
+        svg.innerHTML += `<circle class="b" cx="${x}" cy="${y}" r="${r2}" /> `;
+        svg.innerHTML += `<circle class="a" cx="${x-9}" cy="${y}" r="${r1}" /> `;
+      }
+    }
+  </script>
+
+<script>
+  app = new Vue({
+    el: "#q-app",
+    data() {
+      return {
+        selected_tab: 't_0',
+        bg_color: '#4b4f51',
+        hover: false,
+        active: false,
+        theme_color: '#668fa6',
+        background_style: '#668fa6',
+        paper_heading_1: [],
+        paper_heading_color_1: '#4b4f51',
+        headerState: false,
+        papers: []
+      }
+    },
+    methods: {
+      scrollToElement(id) {
+        let el = document.getElementById(id)
+        const target = getScrollTarget(el)
+        const offset = el.offsetTop + 3
+        const duration = 900
+        setScrollPosition(target, offset, duration)
+      },
+      goTo(url){
+        window.location.href = url;
+      },
+      unhideHeader() {
+        let scrollPos=0;
+        // scrollPos = getScrollPosition('#id_about');
+        if(Quasar.scroll) {
+          scrollPos+=1;
+          console.log(scrollPos);
+          // headerState=true;
+        }
+      },
+      scrollFunction (pos) {
+        this.headerState = (pos>300);
+      }
+    }
+  });
+  </script>
+
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.4.3/dist/showdown.min.js"></script>
+  <script>
+  var req = new XMLHttpRequest();
+  req.open('GET', 'https://raw.githubusercontent.com/brainhack-proceedings/brainhack-proceedings.github.io/master/ABOUT.md');
+  req.onreadystatechange = function() {
+      var converter = new showdown.Converter();
+      var text      = this.responseText;
+
+      showdown.setOption('tables', true);
+      var html      = converter.makeHtml(text);
+      document.querySelector("#md").innerHTML=html;
+  }
+  req.overrideMimeType("text/plain; charset=UTF-8");
+  req.send();
+  </script>
+</body>
+
+</html>
