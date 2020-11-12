@@ -19,6 +19,7 @@ You can also get in touch by email to brainhackorg[at]gmail[dot]org.
 <table>
   <tr>
     <td align="center"><a href="https://agahkarakuzu.github.io"><img src="https://avatars0.githubusercontent.com/u/9632322?s=460&u=6cce16037ef945d2061ed4d2888c402de3f4b82f&v=4" width="100px;" alt=""/><br /><sub><b>Agah Karakuzu</b></sub></a><br /><a href="https://github.com/agahkarakuzu"</a></td>
+    <td align="center"><a href="https://anibalsolon.com"><img src="https://avatars0.githubusercontent.com/u/562525?s=400&u=8f9b56edd7564d8ce1a0eb152407033e10dafd1f&v=4" width="100px;" alt=""/><br /><sub><b>Anibal Sólon</b></sub></a><br /><a href="https://github.com/anibalsolon"</a></td>
     <td align="center"><a href="https://twitter.com/complexbrains"><img src="https://avatars1.githubusercontent.com/u/45263281?v=4" width="100px;" alt=""/><br /><sub><b>Isil Bilgin</b></sub></a><br /><a href="https://github.com/learn-neuroimaging/tutorials-and-resources/commits?author=complexbrains"</a></td>
     <td align="center"><a href="https://twitter.com/katjaQheuer"><img src="https://avatars3.githubusercontent.com/u/6297454?v=4" width="100px;" alt=""/><br /><sub><b>katja heuer</b></sub></a><br /><a href="https://katjaq.github.io/graphy/"</a></td>
   </tr>
