@@ -371,11 +371,16 @@
     //   return md;
     // }
     async function getPaper(repoURL) {
-      const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
+      const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/");
       let res;
       let md;
+
+      res = await fetch(url + '/master/report.md');
+      if(res.status === 404) {
+        res = await fetch(url + '/main/report.md');
+      }
+
       try {
-        res = await fetch(url + '/report.md');
         md = await res.text();
       } catch (err) {
         throw new Error(err);
