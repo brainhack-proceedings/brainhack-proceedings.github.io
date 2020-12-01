@@ -51,6 +51,9 @@
     #md a:visited {
       color: rgb(0, 145, 182) !important;
     }
+    #md img {
+      filter: grayscale(60%);
+    }
 
     .intro {
       background: url(/img/pattern1.png);
@@ -349,7 +352,7 @@
   <script src="https://cdn.rawgit.com/showdownjs/showdown/1.4.3/dist/showdown.min.js"></script>
   <script>
   var req = new XMLHttpRequest();
-  req.open('GET', 'https://raw.githubusercontent.com/brainhack-proceedings/docs/master/source/AUTHORS.md');
+  req.open('GET', 'https://raw.githubusercontent.com/brainhack-proceedings/brainhack-proceedings.github.io/master/ABOUT.md');
   req.onreadystatechange = function() {
       var converter = new showdown.Converter();
       var text      = this.responseText;

@@ -4,7 +4,7 @@
 <head>
   <title>Brainhack Proceedings</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.min.css" rel="stylesheet" type="text/css">
@@ -21,6 +21,31 @@
     }
     .my-font {
       font-family: 'Roboto', sans-serif;
+    }
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    #md a {
+      color: rgb(0, 145, 182) !important;
+    }
+    #md a:visited {
+      color: rgb(0, 145, 182) !important;
     }
 
     .box-shadow:hover {
@@ -94,7 +119,7 @@
           <q-space></q-space>
           <q-tabs no-caps q-pb-none >
             <q-tab
-              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
+              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about');"
               label="About" >
             </q-tab>
             <q-tab
@@ -102,12 +127,16 @@
               label="Papers" >
             </q-tab>
             <q-tab
-              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/blog')"
-              label="Blog" >
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.readthedocs.io/en/latest/')"
+              label="Doc" >
             </q-tab>
             <q-tab
               class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
               label="Submit" >
+            </q-tab>
+            <q-tab
+              class="q-mr-sm q-pb-none custom_tab" @click="goTo('/review')"
+              label="Review" >
             </q-tab>
           </q-tabs>
         </q-toolbar>
@@ -136,7 +165,7 @@
                 <q-space></q-space>
                 <q-tabs no-caps q-pb-none >
                   <q-tab
-                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
+                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about')"
                     label="About" >
                   </q-tab>
                   <q-tab
@@ -144,12 +173,16 @@
                     label="Papers" >
                   </q-tab>
                   <q-tab
-                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/blog')"
-                    label="Blog" >
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('https://brainhack-proceedings.readthedocs.io/en/latest/')"
+                    label="Doc" >
                   </q-tab>
                   <q-tab
                     class="q-mr-sm q-pb-none custom_tab" @click="goTo('/submit')"
                     label="Submit" >
+                  </q-tab>
+                  <q-tab
+                    class="q-mr-sm q-pb-none custom_tab" @click="goTo('/review')"
+                    label="Review" >
                   </q-tab>
                 </q-tabs>
               </q-toolbar>
@@ -165,17 +198,12 @@
               <div class="row justify-left" >
                 <div class="col-md-1" ></div>
 
-                <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
-                  <span class="text-left text-grey-10" style="font-size: 36px;"
-                  >Review for Brainhack Proceedings.
-                  </span>
-                </div>
-
+                <div id="md" class="q-py-sm col-12 col-lg-9 col-md-9" ></div>
                 <div class="col-md-2" ></div>
               </div>
 
               <!-- Text part 2 -->
-              <div class="q-pb-md row justify-left">
+              <!-- <div class="q-pb-md row justify-left">
 
                 <div class="col-md-1"></div>
 
@@ -216,7 +244,7 @@
                 </div>
 
                 <div class="col-md-2"></div>
-              </div>
+              </div> -->
 
             </div>
           </div>
@@ -312,6 +340,22 @@
         }
       }
     });
+  </script>
+
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.4.3/dist/showdown.min.js"></script>
+  <script>
+  var req = new XMLHttpRequest();
+  req.open('GET', 'https://raw.githubusercontent.com/brainhack-proceedings/docs/master/source/REVIEWERS.md');
+  req.onreadystatechange = function() {
+      var converter = new showdown.Converter();
+      var text      = this.responseText;
+
+      showdown.setOption('tables', true);
+      var html      = converter.makeHtml(text);
+      document.querySelector("#md").innerHTML=html;
+  }
+  req.overrideMimeType("text/plain; charset=UTF-8");
+  req.send();
   </script>
 </body>
 

@@ -4,16 +4,15 @@
 <head>
   <title>Brainhack Proceedings</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/quasar@1.12.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qflashcard@1.0.1/dist/index.min.css" rel="stylesheet" type="text/css">
-  <!-- <link
+  <link
   rel="icon"
   sizes="any"
-  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='rgb(102, 143, 166)'/%3E%3C/svg%3E"
- > -->
-  <link rel='shortcut icon' type='image/x-icon' href="/favicon.svg" />
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5' fill='grey'/%3E%3C/svg%3E"
+ >
   <style>
     [v-cloak] {display: none}
 
@@ -23,9 +22,34 @@
     .my-font {
       font-family: 'Roboto', sans-serif;
     }
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      line-height: 1.5;
+      color: #212121!important;
+    }
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #212121!important;
+    }
 
     .box-shadow:hover {
       box-shadow: 3px 3px 3px rgba(0,0,0,0.2) !important;
+    }
+    #md a {
+      color: rgb(0, 145, 182) !important;
+    }
+    #md a:visited {
+      color: rgb(0, 145, 182) !important;
     }
 
     .intro {
@@ -51,6 +75,9 @@
     }
     .a {
       fill: rgba(83,91,96,0.5);
+    }
+    .space1 {
+      margin-top: 2rem;
     }
   </style>
 
@@ -91,12 +118,8 @@
           </a>
           <q-space></q-space>
           <q-tabs no-caps q-pb-none >
-            <!-- <q-tab
-              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="scrollToElement('id_about');"
-              label="About" >
-            </q-tab> -->
             <q-tab
-              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about')"
+              class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about');"
               label="About" >
             </q-tab>
             <q-tab
@@ -142,7 +165,7 @@
                 <q-space></q-space>
                 <q-tabs no-caps q-pb-none >
                   <q-tab
-                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about');"
+                    class="q-mr-sm q-pb-none q-my-none custom_tab" @click="goTo('/about')"
                     label="About" >
                   </q-tab>
                   <q-tab
@@ -166,54 +189,6 @@
               </div>
             </div>
 
-          <!-- About section -->
-          <div class="q-px-md bg-primary" >
-
-            <div class="q-px-xl q-pt-xl bg-primary" id="id_about" >
-
-              <!-- Text part 1 -->
-              <div class="row justify-left" >
-                <div class="col-md-1" ></div>
-
-                <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
-                  <span class="text-left text-grey-10" style="font-size: 36px;">Brainhack Proceedings is a friendly, open access journal for research projects.
-                  </span>
-                </div>
-
-                <div class="col-md-2" ></div>
-              </div>
-
-              <!-- Text part 2 -->
-              <div class="q-pb-md row justify-left">
-
-                <div class="col-md-1"></div>
-
-                <div class="q-py-sm col-12 col-lg-6 col-md-9">
-                  <span class="text-center text-grey-10 text-h5 text-weight-light">Committed to publishing quality project reports with zero article processing charges or subscription fees.</span>
-                </div>
-
-                <div class="col-md-2"></div>
-              </div>
-
-              <!-- 2 buttons -->
-              <div class="row justify-left">
-
-                <div class="col-md-1"></div>
-
-                <div class="col-12 col-lg-6 col-md-9 text-left">
-                  <q-btn flat dense no-caps class="text-weight-regular q-mr-lg q-px-md q-py-none" type="a" href="/submit" size="lg"
-                    :style="'background:'+ theme_color +'; color: white; font-size: 21px;'" label="Submit a paper" >
-                  </q-btn>
-                  <q-btn flat dense no-caps class="text-weight-regular q-px-md q-py-none" type="a" href="/review" size="lg"
-                    :style="'background:'+ theme_color +'; color: white'" label="Volunteer to review" >
-                  </q-btn>
-                </div>
-
-                <div class="col-12 col-md-2"></div>
-              </div>
-
-            </div>
-          </div>
 
           <!-- Recently published papers -->
           <div class="q-px-md bg-primary" >
@@ -224,7 +199,7 @@
                 <div class="col-md-1" ></div>
 
                 <div class="q-pt-xl col-12 col-lg-6 col-md-9" >
-                  <h5 class="text-left text-grey-10 text-weight-bold" style="font-size: 21px !important;">Recently published Papers
+                  <h5 class="text-left text-grey-10 text-weight-bold" style="font-size: 21px !important;">Brainhack Proceedings Papers
                   </h5>
                 </div>
 
@@ -288,11 +263,12 @@
               </div>
 
               <div class="q-py-xl row text-center justify-center text-h5 text-weight-light" style="text-decoration: none; ">
-                <span style="text-decoration: none;"><a style="text-decoration: none; color: #4b4f51; font-size: 21px;" href="https://brainhack-proceedings.github.io/papers" >View all papers...</a></span>
+                <span style="text-decoration: none;"><a style="text-decoration: none; color: #4b4f51; font-size: 21px;" href="https://brainhack-proceedings.github.io/papers" ></a></span>
               </div>
 
             </div>
           </div>
+
 
           <!-- footer -->
           <q-toolbar class="flex flex-center text-white text-center bg-dark q-py-xl" 
@@ -383,16 +359,11 @@
     //   return md;
     // }
     async function getPaper(repoURL) {
-      const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/");
+      const url = repoURL.replace("https://github.com/","https://raw.githubusercontent.com/") + "/master";
       let res;
       let md;
-
-      res = await fetch(url + '/master/report.md');
-      if(res.status === 404) {
-        res = await fetch(url + '/main/report.md');
-      }
-
       try {
+        res = await fetch(url + '/report.md');
         md = await res.text();
       } catch (err) {
         throw new Error(err);
@@ -549,6 +520,24 @@
         svg.innerHTML += `<circle class="a" cx="${x-9}" cy="${y}" r="${r1}" /> `;
       }
     }
+  </script>
+
+
+
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.4.3/dist/showdown.min.js"></script>
+  <script>
+  var req = new XMLHttpRequest();
+  req.open('GET', 'https://raw.githubusercontent.com/brainhack-proceedings/docs/master/source/AUTHORS.md');
+  req.onreadystatechange = function() {
+      var converter = new showdown.Converter();
+      var text      = this.responseText;
+
+      showdown.setOption('tables', true);
+      var html      = converter.makeHtml(text);
+      document.querySelector("#md").innerHTML=html;
+  }
+  req.overrideMimeType("text/plain; charset=UTF-8");
+  req.send();
   </script>
 </body>
 
