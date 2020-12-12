@@ -254,7 +254,11 @@
                             </div>
                             <div class="row">
                               <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
-                                class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">{{paper.title}}
+                                class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">                              <a
+                                :href="'https://brainhack-proceedings.github.io/' + paper.url"
+                                target="_blank"
+                                style="color: #4b4f51; text-decoration: none;"
+                              >{{paper.title}}</a>
                               </div>
                             </div>
                             <div class="row">
