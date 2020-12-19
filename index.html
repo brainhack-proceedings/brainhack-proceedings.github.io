@@ -536,7 +536,7 @@
 
   <script>
     const svg = document.querySelector("svg");
-    const roundToEven = (n) => 2 * Math.floor(n / 2) + 1;
+    const roundToOdd = (n) => 2 * Math.floor(n / 2) + 1;
 
     const margin = 40;
     const nrows = 4;
@@ -556,7 +556,7 @@
 
     const draw = () => {
       const width = window.innerWidth - (margin * 2);
-      const ncols = roundToEven(a * width + b);
+      const ncols = roundToOdd(a * width + b);
 
       const col = width / ncols;
       const r = (col / 2) * rProportion;
