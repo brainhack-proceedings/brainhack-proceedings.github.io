@@ -564,7 +564,7 @@
       const rprop = r / minr;
       const rdisp = (minr * (rprop - 1)) / 2
 
-      const height = nrows * (col) - r + margin * 2;
+      const height = nrows * col - r / 2 + margin * 1.5;
 
       svg.innerHTML = ``
       svg.style.height = height;
