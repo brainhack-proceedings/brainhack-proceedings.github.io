@@ -576,9 +576,11 @@
           const r1 = r * p2 + minr * p1;
           const r2 = r * p1 + minr * p2;
 
-          const x1 = (i * col) + r + margin - rdisp;
-          const x2 = (i * col) + r + margin + rdisp;
+          const x = (i * col) + r + margin;
+          const x1 = x - rdisp;
+          const x2 = x + rdisp;
           const y = j * col + r + margin;
+          
           svg.innerHTML += `<circle class="b" cx="${x2}" cy="${y}" r="${r2}" /> `;
           svg.innerHTML += `<circle class="a" cx="${x1}" cy="${y}" r="${r1}" /> `;
         }
