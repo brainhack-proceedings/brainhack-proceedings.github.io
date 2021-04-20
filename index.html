@@ -254,7 +254,11 @@
                             </div>
                             <div class="row">
                               <div :class="paper_heading_1" :style="'color: ' + paper_heading_color_1"
-                                class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">{{paper.title}}
+                                class="paper_heading_1 text-h6 q-mt-sm q-mb-xs">                              <a
+                                :href="'https://brainhack-proceedings.github.io/' + paper.url"
+                                target="_blank"
+                                style="color: #4b4f51; text-decoration: none;"
+                              >{{paper.title}}</a>
                               </div>
                             </div>
                             <div class="row">
@@ -532,23 +536,63 @@
 
   <script>
     const svg = document.querySelector("svg");
-    const ncols = 33, nrows = 4, o = 50;
-    const minr = 10;
-    const d = (window.outerWidth - 2*o)/(ncols-1);
-    const height = 1.5*o + (nrows-1)*d;
-    const r = d/140;
-    svg.innerHTML = `<rect x="0" y="0" width="${2*o+(ncols-1)*d}" height="${height}" fill="rgb(66,67,68)"/>`
-    svg.style.height = height;
-    for(let j=0;j<nrows;j++) {
-      for(let i=0;i<ncols;i++) {
-        const x = o + i*d;
-        const y = o + j*d;
-        const r1 = (i+minr)*r;
-        const r2 = ((ncols-1-i)+minr)*r;
-        svg.innerHTML += `<circle class="b" cx="${x}" cy="${y}" r="${r2}" /> `;
-        svg.innerHTML += `<circle class="a" cx="${x-9}" cy="${y}" r="${r1}" /> `;
+    const roundToOdd = (n) => 2 * Math.floor(n / 2) + 1;
+
+    const margin = 40;
+    const nrows = 4;
+    const rToRmin = 0.25;
+    const rProportion = 0.7;
+
+    const colProportion = [
+      [500, 11],
+      [1600, 33],
+    ]
+
+    const sizeDelta = colProportion[1][0] - colProportion[0][0];
+    const colsDelta = colProportion[1][1] - colProportion[0][1];
+
+    const a = colsDelta / sizeDelta;
+    const b = colProportion[0][1] - (a * colProportion[0][0]);
+
+    const draw = () => {
+      const width = window.innerWidth - (margin * 2);
+      const ncols = roundToOdd(a * width + b);
+
+      const col = width / ncols;
+      const r = (col / 2) * rProportion;
+      const minr = r * rToRmin;
+      const rprop = r / minr;
+      const rdisp = (minr * (rprop - 1)) / 2
+
+      const height = nrows * col - r / 2 + margin * 1.5;
+
+      svg.innerHTML = '';
+      svg.style.height = height;
+      let innerHTML = '';
+
+      for(let i = 0; i < ncols; i++) {
+        const p1 = ((ncols - 1 - i) / ncols);
+        const p2 = (i / ncols);
+        const r1 = r * p2 + minr * p1;
+        const r2 = r * p1 + minr * p2;
+
+        const x = (i * col) + r + margin;
+        const x1 = x - rdisp;
+
+        for(let j = 0; j < nrows; j++) {
+          const x2 = x + rdisp;
+          const y = j * col + r + margin;
+
+          innerHTML += `<circle class="b" cx="${x2}" cy="${y}" r="${r2}" /> `;
+          innerHTML += `<circle class="a" cx="${x1}" cy="${y}" r="${r1}" /> `;
+        }
       }
+
+      svg.innerHTML = innerHTML;
     }
+
+    window.addEventListener('resize', draw);
+    draw();
   </script>
 </body>
 
